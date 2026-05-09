@@ -1,14 +1,14 @@
 import { Link, Route, Routes } from "react-router";
 import { Users, UserRound, LayoutDashboard } from "lucide-react";
 
-import Pacientes from "./pages/Pacientes.js";
+import Pacientes from "./pages/Pacientes";
 import Medicos from "./pages/Medicos";
 
 function App() {
     return (
-        <div className="flex min-h-screen bg-gray-100 font-sans">
+        <div className="flex min-h-screen bg-slate-100 font-sans">
 
-            {/* Sidebar*/}
+            {/* Sidebar */}
             <aside className="w-72 bg-slate-900 text-white p-6 flex flex-col shadow-2xl">
                 <div className="mb-10">
                     <h1 className="text-3xl font-bold text-cyan-400">
@@ -46,13 +46,37 @@ function App() {
                 </nav>
             </aside>
 
-            <main className="flex 1 p-10">
-                <Routes>
-                    <Route path="/"></Route>
-                    <Route path="/pacientes" element={<Pacientes />} />
-                    <Route path="/medicos" element={<Medicos />}></Route>
-                    <Route path="*" element={<h1 className="text-red-500">ruta no encontrada</h1>}></Route>
-                </Routes>
+            {/* Main */}
+            <main className="flex-1 p-8">
+
+                {/* Topbar */}
+                <header className="bg-white rounded-2xl shadow-sm p-5 mb-8 flex justify-between items-center">
+                    <div>
+                        <h2 className="text-2xl font-bold text-slate-800">
+                            Dashboard Hospitalario
+                        </h2>
+                        <p className="text-slate-500">
+                            Administración del sistema
+                        </p>
+                    </div>
+                </header>
+
+                {/* Routes */}
+                <div className="bg-white rounded-2xl shadow-sm p-6">
+                    <Routes>
+                        <Route path="/" element={<h1>Inicio</h1>}/>
+                        <Route path="/pacientes" element={<Pacientes/>}/>
+                        <Route path="/medicos" element={<Medicos/>}/>
+                        <Route
+                            path="*"
+                            element={
+                                <h1 className="text-red-500">
+                                    Ruta no encontrada
+                                </h1>
+                            }
+                        />
+                    </Routes>
+                </div>
             </main>
 
         </div>
