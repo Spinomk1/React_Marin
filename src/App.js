@@ -1,15 +1,19 @@
+import { useState } from "react";
 import { Link, Route, Routes } from "react-router";
-import { Users, UserRound, LayoutDashboard } from "lucide-react";
+import { Users, UserRound, LayoutDashboard, Menu, X } from "lucide-react";
 
 import Pacientes from "./pages/Pacientes";
 import Medicos from "./pages/Medicos";
 
 function App() {
+
+    const [sidebarOpen, setSidebarOpen] = useState(true);
+
     return (
         <div className="flex min-h-screen bg-slate-100 font-sans">
 
             {/* Sidebar */}
-            <aside className="w-72 bg-slate-900 text-white p-6 flex flex-col shadow-2xl">
+            <aside className={`bg-slate-900 text-white p-6 flex flex-col shadow-2xl transition-all duration-300 ${sidebarOpen ? "w-72" : "w-0 overflow-hidden p-0"}`}>
                 <div className="mb-10">
                     <h1 className="text-3xl font-bold text-cyan-400">
                         SysHospital
@@ -51,22 +55,32 @@ function App() {
 
                 {/* Topbar */}
                 <header className="bg-white rounded-2xl shadow-sm p-5 mb-8 flex justify-between items-center">
-                    <div>
-                        <h2 className="text-2xl font-bold text-slate-800">
-                            Dashboard Hospitalario
-                        </h2>
-                        <p className="text-slate-500">
-                            Administración del sistema
-                        </p>
+                    <div className="flex items-center gap-4">
+                        <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 rounded-lg hover:bg-slate-100 transition">
+                            {sidebarOpen ? (
+                                <X size={28} className="text-slate-700" />
+                            ) : (
+                                <Menu size={28} className="text-slate-700" />
+                            )}
+                        </button>
+
+                        <div>
+                            <h2 className="text-2xl font-bold text-slate-800">
+                                Dashboard Hospitalario
+                            </h2>
+                            <p className="text-slate-500">
+                                Administración del sistema
+                            </p>
+                        </div>
                     </div>
                 </header>
 
                 {/* Routes */}
                 <div className="bg-white rounded-2xl shadow-sm p-6">
                     <Routes>
-                        <Route path="/" element={<h1>Inicio</h1>}/>
-                        <Route path="/pacientes" element={<Pacientes/>}/>
-                        <Route path="/medicos" element={<Medicos/>}/>
+                        <Route path="/" element={<h1>Inicio</h1>} />
+                        <Route path="/pacientes" element={<Pacientes />} />
+                        <Route path="/medicos" element={<Medicos />} />
                         <Route
                             path="*"
                             element={
@@ -78,7 +92,6 @@ function App() {
                     </Routes>
                 </div>
             </main>
-
         </div>
     );
 }
