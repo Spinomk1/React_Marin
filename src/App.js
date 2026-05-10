@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Route, Routes } from "react-router";
+import { Link, Route, Routes, useLocation } from "react-router";
 import { Users, UserRound, LayoutDashboard, Menu, X } from "lucide-react";
 
 import Pacientes from "./pages/Pacientes";
@@ -8,12 +8,21 @@ import Medicos from "./pages/Medicos";
 function App() {
 
     const [sidebarOpen, setSidebarOpen] = useState(true);
+    const location = useLocation();
+
+    const pageTitles = {
+        "/": "Inicio",
+        "/pacientes": "Pacientes",
+        "/medicos": "Médicos"
+    };
+
+    const currentTitle = pageTitles[location.pathname] || "Dashboard";
 
     return (
         <div className="flex min-h-screen bg-slate-100 font-sans">
 
             {/* Sidebar */}
-            <aside className={`bg-slate-900 text-white p-6 flex flex-col shadow-2xl transition-all duration-300 ${sidebarOpen ? "w-72" : "w-0 overflow-hidden p-0"}`}>
+            <aside className={`fixed top-0 left-0 h-full z-50 w-72 bg-slate-900 text-white p-6 flex flex-col shadow-2xl transition-transform duration-300 ease-in-out ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
                 <div className="mb-10">
                     <h1 className="text-3xl font-bold text-cyan-400">
                         SysHospital
@@ -51,12 +60,15 @@ function App() {
             </aside>
 
             {/* Main */}
-            <main className="flex-1 p-8">
+            <main className={`flex-1 p-8 transition-all duration-300 ${sidebarOpen ? "ml-72" : "ml-0"}`}>
 
                 {/* Topbar */}
-                <header className="bg-white rounded-2xl shadow-sm p-5 mb-8 flex justify-between items-center">
+                <header className="bg-white rounded-2xl shadow-sm p-5 mb-8 flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 rounded-lg hover:bg-slate-100 transition">
+                        <button
+                            onClick={() => setSidebarOpen(!sidebarOpen)}
+                            className="p-2 rounded-lg hover:bg-slate-100 transition"
+                        >
                             {sidebarOpen ? (
                                 <X size={28} className="text-slate-700" />
                             ) : (
@@ -65,9 +77,9 @@ function App() {
                         </button>
 
                         <div>
-                            <h2 className="text-2xl font-bold text-slate-800">
-                                Dashboard Hospitalario
-                            </h2>
+                            <h1 className="text-3xl font-bold text-slate-800">
+                                {currentTitle}
+                            </h1>
                             <p className="text-slate-500">
                                 Administración del sistema
                             </p>
@@ -78,9 +90,9 @@ function App() {
                 {/* Routes */}
                 <div className="bg-white rounded-2xl shadow-sm p-6">
                     <Routes>
-                        <Route path="/" element={<h1>Inicio</h1>} />
-                        <Route path="/pacientes" element={<Pacientes />} />
-                        <Route path="/medicos" element={<Medicos />} />
+                        <Route path="/" />
+                        <Route path="/pacientes" />
+                        <Route path="/medicos" />
                         <Route
                             path="*"
                             element={
