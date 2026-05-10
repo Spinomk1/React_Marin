@@ -13,7 +13,7 @@ function App() {
         <div className="flex min-h-screen bg-slate-100 font-sans">
 
             {/* Sidebar */}
-            <aside className={`bg-slate-900 text-white p-6 flex flex-col shadow-2xl transition-all duration-300 ${sidebarOpen ? "w-72" : "w-0 overflow-hidden p-0"}`}>
+            <aside className={`fixed top-0 left-0 h-full z-50 w-72 bg-slate-900 text-white p-6 flex flex-col shadow-2xl transition-transform duration-300 ease-in-out ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
                 <div className="mb-10">
                     <h1 className="text-3xl font-bold text-cyan-400">
                         SysHospital
@@ -51,8 +51,7 @@ function App() {
             </aside>
 
             {/* Main */}
-            <main className="flex-1 p-8">
-
+            <main className={`flex-1 p-8 transition-all duration-300 ${sidebarOpen ? "ml-72" : "ml-0"}`}>
                 {/* Topbar */}
                 <header className="bg-white rounded-2xl shadow-sm p-5 mb-8 flex justify-between items-center">
                     <div className="flex items-center gap-4">
