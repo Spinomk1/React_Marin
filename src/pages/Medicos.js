@@ -1,7 +1,7 @@
 export default function Medicos() {
     return (
         <>
-            <p>Médicos</p>
+            <p>¿Qué contengo? pues Médicos duhh</p>
         </>
     )
 }
