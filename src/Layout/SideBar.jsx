@@ -1,4 +1,4 @@
-import {Link} from "react-router";
+import {Link} from "react-router-dom";
 import {LayoutDashboard, UserRound, Users} from "lucide-react";
 
 const SideBar = ({sidebarOpen}) => {

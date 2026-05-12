@@ -1,5 +1,5 @@
 import { Menu, X } from "lucide-react"
-import {useLocation} from "react-router";
+import {useLocation} from "react-router-dom";
 
 const Topbar = ({setSidebarOpen, sidebarOpen}) => {
 

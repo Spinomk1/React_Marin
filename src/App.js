@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Route, Routes} from "react-router";
+import { Route, Routes} from "react-router-dom";
 
 import DataBaseTables from "./pages/DataBaseTables";
 import {Inicio} from "./pages/Inicio";
