@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Pencil, Trash2 } from 'lucide-react';
 
 const DynamicTable = () => {
     const { tableName } = useParams();
@@ -39,33 +40,39 @@ const DynamicTable = () => {
         <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
                 <thead className="bg-slate-50 border-b border-gray-100">
-                <tr>
-                    {columns.map((col) => (
-                        <th key={col} className="p-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                            {col.replace('_', ' ')}
+                    <tr>
+                        {columns.map((col) => (
+                            <th key={col} className="p-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                {col.replace('_', ' ')}
+                            </th>
+                        ))}
+                        <th className="p-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-right">
+                            Acciones
                         </th>
-                    ))}
-                    <th className="p-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-right">
-                        Acciones
-                    </th>
-                </tr>
+                    </tr>
                 </thead>
 
                 <tbody className="divide-y divide-gray-100">
-                {data.map((row, rowIndex) => (
-                    <tr key={rowIndex} className="hover:bg-slate-50 transition-colors">
-                        {columns.map((col) => (
-                            <td key={col} className="p-4 text-sm text-slate-700">
-                                {row[col] !== null ? String(row[col]) : ''}
+                    {data.map((row, rowIndex) => (
+                        <tr key={rowIndex} className="hover:bg-slate-50 transition-colors">
+                            {columns.map((col) => (
+                                <td key={col} className="p-4 text-sm text-slate-700">
+                                    {row[col] !== null ? String(row[col]) : ''}
+                                </td>
+                            ))}
+                            {/* Botones de acción (Editar / Eliminar) */}
+                            <td className="p-4 text-sm">
+                                <div className="flex justify-end items-center gap-3">
+                                    <button title="Modificar" className=" p-2 rounded-lg text-blue-500 hover:bg-blue-50 hover:text-blue-700 transition">
+                                        <Pencil size={18} />
+                                    </button>
+                                    <button title="Eliminar" className=" p-2 rounded-lg text-red-400 hover:bg-red-50 hover:text-red-600 transition">
+                                        <Trash2 size={18} />
+                                    </button>
+                                </div>
                             </td>
-                        ))}
-                        {/* Botones de acción (Editar / Eliminar) */}
-                        <td className="p-4 text-sm text-right space-x-3">
-                            <button className="text-blue-500 hover:text-blue-700">Modificar</button>
-                            <button className="text-red-400 hover:text-red-600">Eliminar</button>
-                        </td>
-                    </tr>
-                ))}
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </div>

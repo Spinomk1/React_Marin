@@ -4,7 +4,7 @@ import { Route, Routes} from "react-router";
 import DataBaseTables from "./pages/DataBaseTables";
 import {Inicio} from "./pages/Inicio";
 import {UseCases, UseCase1, UseCase2, UseCase3, UseCase4} from "./pages/UseCases";
-import {Docs} from "./Components/Docs";
+import Docs from "./Components/Docs";
 import DynamicTable from "./pages/DynamicTable";
 import Topbar from "./Layout/Topbar";
 import SideBar from "./Layout/SideBar";

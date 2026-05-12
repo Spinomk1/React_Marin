@@ -1,5 +1,5 @@
 import {Link} from "react-router";
-import {LayoutDashboard, UserRound, Users} from "lucide-react";
+import {File, LayoutDashboard, Database, Workflow} from "lucide-react";
 
 const SideBar = ({sidebarOpen}) => {
 
@@ -27,7 +27,7 @@ const SideBar = ({sidebarOpen}) => {
                     to="/database"
                     className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800 transition"
                 >
-                    <Users size={20} />
+                    <Database size={20} />
                     Base de datos
                 </Link>
 
@@ -35,7 +35,7 @@ const SideBar = ({sidebarOpen}) => {
                     to="/casos_de_uso"
                     className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800 transition"
                 >
-                    <UserRound size={20} />
+                    <Workflow size={20} />
                     Casos de uso
                 </Link>
 
@@ -43,7 +43,7 @@ const SideBar = ({sidebarOpen}) => {
                     to="/documentacion"
                     className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800 transition"
                 >
-                    <UserRound size={20} />
+                    <File size={20} />
                     Documentación
                 </Link>
 
