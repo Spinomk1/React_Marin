@@ -1,12 +1,10 @@
 import { NavLink, Outlet, useParams } from 'react-router-dom';
 
-export default function DataBaseTables() {
-
-    const { tableName } = useParams();
+export default function DataBaseTableContainer() {
 
     const MENU_TABLAS = [
         { id: 'pacientes', label: 'Pacientes' },
-        { id: 'medicos', label: 'Personal Médico' }
+        { id: 'personal', label: 'Personal Médico' }
     ];
 
     return (
@@ -29,13 +27,6 @@ export default function DataBaseTables() {
                     </NavLink>
                 ))}
             </nav>
-
-            {/*Encabezado*/}
-            <div className="flex justify-end items-center mb-6">
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 shadow-sm transition-all">
-                    <span className="text-xl">+</span> Nuevo {tableName?.slice(0, -1)}
-                </button>
-            </div>
 
             <div className="bg-white rounded-xl shadow-sm border border-gray-100">
                 <Outlet />

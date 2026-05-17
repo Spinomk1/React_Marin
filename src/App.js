@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Route, Routes} from "react-router";
 
-import DataBaseTables from "./pages/DataBaseTables";
+import DataBaseTableContainer from "./pages/DatabaseTables/DataBaseTableContainer";
 import {Inicio} from "./pages/Inicio";
 import {UseCases, UseCase1, UseCase2, UseCase3, UseCase4} from "./pages/UseCases";
 import Docs from "./Components/Docs";
-import DynamicTable from "./pages/DynamicTable";
+import DynamicTable from "./pages/DatabaseTables/DynamicTable";
 import Topbar from "./Layout/Topbar";
 import SideBar from "./Layout/SideBar";
 
@@ -29,7 +29,7 @@ function App() {
                 <div className="bg-white rounded-2xl shadow-sm p-6">
                     <Routes>
                         <Route path="/" element={<Inicio/>} />
-                        <Route path="/database" element={<DataBaseTables/>}>
+                        <Route path="/database" element={<DataBaseTableContainer/>}>
                             <Route path= ":tableName" element={<DynamicTable/>}></Route>
                         </Route>
 
