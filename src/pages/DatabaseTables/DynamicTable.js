@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Trash2 } from 'lucide-react';
+import {Pencil, Trash2} from 'lucide-react';
 import { useParams } from 'react-router-dom';
-import Editbutton from '../../Components/EditButton';
 import DynamicModal from '../../Components/DynamicModal';
 
 const DynamicTable = () => {
@@ -9,6 +8,8 @@ const DynamicTable = () => {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+
+    const [recordToEdit, setRecordToEdit] = useState(null);
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -32,37 +33,67 @@ const DynamicTable = () => {
     useEffect(() => { setPage(1); }, [tableName]);
     useEffect(() => { fetchData(); }, [tableName, page]);
 
-    const handleSaveNewRecord = async (nuevoRegistro) => {
+
+    const handleOpenCreate = () => {
+        setRecordToEdit(null); // Nos aseguramos de que no haya datos basura
+        setIsModalOpen(true);
+    };
+
+    const handleEdit = (row) => {
+        setRecordToEdit(row); // Guardamos toda la fila
+        setIsModalOpen(true);
+    };
+
+    const handleSaveRecord = async (formData) => {
         try {
-            const response = await fetch(`http://localhost:4000/api/data/${tableName}`, {
-                method: 'POST',
+            // Detectamos si es actualización o creación nueva
+            const isEditing = !!recordToEdit;
+
+            const pkName = columns[0];
+            const idValue = isEditing ? recordToEdit[pkName] : null;
+
+            if (isEditing && (idValue === undefined || idValue === null)) {
+                console.error("Fila actual:", recordToEdit, "Columna ID:", pkName);
+                alert("Error crítico: No se encontró el ID del registro para actualizar.");
+                return;
+            }
+
+            const payload = { ...formData };
+
+            if (isEditing) {
+                delete payload[pkName];
+            }
+
+            const url = isEditing
+                ? `http://localhost:4000/api/data/${tableName}/${idValue}`
+                : `http://localhost:4000/api/data/${tableName}`;
+
+            const method = isEditing ? 'PUT' : 'POST';
+
+            const response = await fetch(url, {
+                method: method,
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(nuevoRegistro),
+                body: JSON.stringify(payload), // Enviamos el paquete limpio
             });
 
             if (response.ok) {
                 setIsModalOpen(false);
-                fetchData(); // Súper fácil de refrescar porque la función está en este mismo archivo
+                setRecordToEdit(null); // Limpiamos la memoria
+                fetchData(); // Refrescamos la tabla al instante
+            } else {
+                const errData = await response.json();
+                alert(`No se pudo guardar: ${errData.error || errData.detalle || 'Error en BD'}`);
             }
         } catch (err) {
-            console.error(err);
+            console.error("Error al comunicarse con la API:", err);
         }
     };
 
-// --- FUNCIÓN PARA MODIFICAR (ABRIR FORMULARIO) ---
-    const handleEdit = (row) => {
-        const pkName = columns.find(col => col.toLowerCase().endsWith('id')) || 'id';
-        const idValue = row[pkName];
-
-        alert(`Abriendo edición para el registro ID: ${idValue}. Puedes usar el mismo modal pasando este objeto 'row' como estado inicial.`);
-    };
-
     const handleDelete = async (row) => {
-        // CORRECCIÓN CLAVE: El primer elemento de las columnas siempre es la Llave Primaria en Postgres
+
         const pkName = columns[0];
         const idValue = row[pkName];
 
-        // Validación defensiva: Si por alguna razón vuelve a ser undefined, frenamos la petición
         if (idValue === undefined || idValue === null) {
             console.error("Error al identificar la Llave Primaria. Columna detectada:", pkName, "en la fila:", row);
             alert("No se pudo encontrar el ID de este registro para eliminarlo.");
@@ -74,13 +105,12 @@ const DynamicTable = () => {
         }
 
         try {
-            // Ahora la URL llevará el número real (ej: /api/data/pacientes/5)
             const response = await fetch(`http://localhost:4000/api/data/${tableName}/${idValue}`, {
                 method: 'DELETE'
             });
 
             if (response.ok) {
-                fetchData(); // Recargar la tabla automáticamente
+                fetchData();
             } else {
                 const errorData = await response.json();
                 alert(`No se pudo eliminar: ${errorData.error || 'Error desconocido'}`);
@@ -104,7 +134,7 @@ const DynamicTable = () => {
                     Gestión de {tableName}
                 </h2>
                 <button
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={() => handleOpenCreate()}
                     className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium shadow-sm flex items-center gap-2 transition-all"
                 >
                     <span className="text-xl">+</span> Nuevo {tableName?.slice(0, -1)}
@@ -140,7 +170,10 @@ const DynamicTable = () => {
                             ))}
                             <td className="p-4 text-sm text-right space-x-3">
                                 {/*Botones de eliminar y actualizar*/}
-                                <Editbutton/>
+                                <button title="Modificar" className=" p-2 rounded-lg text-blue-500 hover:bg-blue-50 hover:text-blue-700 transition"
+                                    onClick={() => handleEdit(row)}>
+                                    <Pencil size={18} />
+                                </button>
 
                                 <button title="Eliminar" className=" p-2 rounded-lg text-red-400 hover:bg-red-50 hover:text-red-600 transition"
                                         onClick={() => handleDelete(row)}
@@ -190,10 +223,14 @@ const DynamicTable = () => {
     </div>
             <DynamicModal
                 isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
+                onClose={() => {
+                    setIsModalOpen(false);
+                    setRecordToEdit(null); // Limpiar al cerrar
+                }}
                 tableName={tableName}
                 columns={columns}
-                onSave={handleSaveNewRecord}
+                onSave={handleSaveRecord}
+                initialData={recordToEdit} // <--- ¡La pieza mágica!
             />
 </div>
 

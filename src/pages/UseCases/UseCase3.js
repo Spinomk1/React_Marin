@@ -7,7 +7,7 @@ export default function UseCase3() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch("http://localhost:8000/api/caso3")
+        fetch("http://localhost:4000/api/caso3")
             .then((res) => { if (!res.ok) throw new Error("Error de red"); return res.json(); })
             .then((apiData) => { if (apiData.error) throw new Error(apiData.error); setData(apiData); setLoading(false); })
             .catch((err) => { setError(err.message); setLoading(false); });

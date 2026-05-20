@@ -7,13 +7,13 @@ export default function UseCase2() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch("http://localhost:8000/api/caso2")
+        fetch("http://localhost:4000/api/caso2")
             .then((res) => { if (!res.ok) throw new Error("Error de red"); return res.json(); })
             .then((apiData) => { if (apiData.error) throw new Error(apiData.error); setData(apiData); setLoading(false); })
             .catch((err) => { setError(err.message); setLoading(false); });
     }, []);
 
-    if (loading) return <div className="p-6 text-slate-500 animate-pulse">Procesando áreas hospitalarias en Python...</div>;
+    if (loading) return <div className="p-6 text-slate-500 animate-pulse">Procesando áreas hospitalarias...</div>;
     if (error) return <div className="p-6 text-red-500">⚠️ Error: {error}</div>;
 
     return (

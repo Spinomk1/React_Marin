@@ -8,7 +8,7 @@ export default function UseCase1() {
 
     useEffect(() => {
         // Consultamos la API de Python que acabamos de crear
-        fetch("http://localhost:8000/api/caso1")
+        fetch("http://localhost:4000/api/caso1")
             .then((res) => {
                 if (!res.ok) throw new Error("Error en la respuesta del servidor");
                 return res.json();
@@ -24,8 +24,8 @@ export default function UseCase1() {
             });
     }, []);
 
-    if (loading) return <div className="p-6 text-slate-500 font-medium animate-pulse">Calculando Algoritmo Apriori en el servidor Python...</div>;
-    if (error) return <div className="p-6 text-red-500 font-medium">⚠️ Error de conexión: {error}. Asegúrate de que el backend de Python esté encendido.</div>;
+    if (loading) return <div className="p-6 text-slate-500 font-medium animate-pulse">Calculando Algoritmo Apriori en el servidor ...</div>;
+    if (error) return <div className="p-6 text-red-500 font-medium">⚠️ Error de conexión: {error}. Asegúrate de que el backend esté encendido.</div>;
 
     return (
         <div className="border border-slate-200 rounded-2xl overflow-hidden">

@@ -3,8 +3,7 @@ import {
     Droplets,
     Hospital,
     Thermometer,
-    BadgeDollarSign,
-    SlidersHorizontal
+    BadgeDollarSign
 } from "lucide-react";
 const casos = [
     {
