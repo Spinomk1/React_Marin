@@ -1,70 +1,150 @@
-# Getting Started with Create React App
+# SysHospital - Panel Administrativo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicacion web desarrollada en React para la gestion y consulta de informacion de un sistema hospitalario. El proyecto forma parte de un trabajo integrador de Administracion de Bases de Datos Corporativas y presenta una interfaz administrativa para explorar tablas, revisar casos de uso y consultar documentacion tecnica del sistema.
 
-## Available Scripts
+## Caracteristicas
 
-In the project directory, you can run:
+- Panel principal con acceso rapido a las secciones del sistema.
+- Navegacion lateral para Inicio, Base de datos, Casos de uso y Documentacion.
+- Consulta dinamica de tablas desde una API local.
+- Visualizacion de documentos PDF dentro de la aplicacion.
+- Interfaz responsiva construida con Tailwind CSS.
+- Iconografia mediante Lucide React.
+
+## Tecnologias
+
+- React
+- React Router
+- Tailwind CSS
+- Lucide React
+- Create React App
+
+## Requisitos
+
+Antes de ejecutar el proyecto, asegurate de tener instalado:
+
+- Node.js
+- npm
+- Backend/API del proyecto disponible en `http://localhost:4000`
+
+La aplicacion frontend consulta datos desde:
+
+```txt
+http://localhost:4000/api/data/:tableName
+```
+
+Por ejemplo:
+
+```txt
+http://localhost:4000/api/data/pacientes
+http://localhost:4000/api/data/medicos
+```
+
+## Instalacion
+
+Clona el repositorio:
+
+```bash
+git clone <url-del-repositorio>
+cd React_Marin
+```
+
+Instala las dependencias:
+
+```bash
+npm install
+```
+
+Inicia la aplicacion en modo desarrollo:
+
+```bash
+npm start
+```
+
+La aplicacion estara disponible en:
+
+```txt
+http://localhost:3000
+```
+
+## Scripts Disponibles
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Ejecuta la aplicacion en modo desarrollo.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Genera una version optimizada para produccion en la carpeta `build`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm test`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Ejecuta las pruebas configuradas con React Testing Library.
+
+> Nota: el proyecto puede requerir ajustes en la configuracion de pruebas para compatibilidad con versiones recientes de React Router.
 
 ### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Expone la configuracion interna de Create React App. No se recomienda usarlo salvo que sea estrictamente necesario.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Estructura del Proyecto
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```txt
+React_Marin/
+├── public/
+├── src/
+│   ├── Components/
+│   │   ├── CardInicio.js
+│   │   └── Docs.js
+│   ├── Layout/
+│   │   ├── SideBar.jsx
+│   │   └── Topbar.jsx
+│   ├── docs/
+│   │   ├── bd_desarrollo.pdf
+│   │   ├── bd_llenado.pdf
+│   │   ├── DiagramaUML.pdf
+│   │   ├── informe_tecnico.pdf
+│   │   └── marco_teorico.pdf
+│   ├── pages/
+│   │   ├── DataBaseTables.js
+│   │   ├── DynamicTable.jsx
+│   │   ├── Inicio.js
+│   │   └── UseCases/
+│   ├── App.js
+│   ├── index.css
+│   └── index.js
+├── package.json
+├── tailwind.config.js
+└── README.md
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Rutas Principales
 
-## Learn More
+| Ruta | Descripcion |
+| --- | --- |
+| `/` | Pantalla de inicio |
+| `/database` | Seccion de consulta de tablas |
+| `/database/pacientes` | Tabla de pacientes |
+| `/database/medicos` | Tabla de personal medico |
+| `/casos_de_uso` | Seccion de casos de uso |
+| `/documentacion` | Visor de documentos PDF |
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Documentacion Incluida
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+El repositorio incluye documentos de apoyo en formato PDF:
 
-### Code Splitting
+- Marco teorico
+- Informe tecnico
+- Llenado de base de datos
+- Desarrollo de base de datos
+- Diagrama UML
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Estos archivos se pueden consultar desde la seccion **Documentacion** de la aplicacion.
 
-### Analyzing the Bundle Size
+## Estado del Proyecto
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Este README es tentativo y puede ajustarse conforme avance el proyecto. Actualmente el frontend cuenta con la estructura principal de navegacion, consulta dinamica de datos y visor de documentos. Algunas acciones de administracion, como crear, editar o eliminar registros, pueden requerir integracion adicional con el backend.
 
-### Making a Progressive Web App
+## Autores
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Proyecto academico desarrollado para la materia de Administracion de Bases de Datos Corporativas.
