@@ -1,4 +1,4 @@
-# SysHospital - Panel Administrativo
+# Dashboard Administrativo Hospitalario
 
 Aplicacion web desarrollada en React para la gestion y consulta de informacion de un sistema hospitalario. El proyecto forma parte de un trabajo integrador de Administracion de Bases de Datos Corporativas y presenta una interfaz administrativa para explorar tablas, revisar casos de uso y consultar documentacion tecnica del sistema.
 
@@ -21,7 +21,7 @@ Aplicacion web desarrollada en React para la gestion y consulta de informacion d
 
 ## Requisitos
 
-Antes de ejecutar el proyecto, asegurate de tener instalado:
+Antes de ejecutar, tener instalado:
 
 - Node.js
 - npm
@@ -140,11 +140,3 @@ El repositorio incluye documentos de apoyo en formato PDF:
 - Diagrama UML
 
 Estos archivos se pueden consultar desde la seccion **Documentacion** de la aplicacion.
-
-## Estado del Proyecto
-
-Este README es tentativo y puede ajustarse conforme avance el proyecto. Actualmente el frontend cuenta con la estructura principal de navegacion, consulta dinamica de datos y visor de documentos. Algunas acciones de administracion, como crear, editar o eliminar registros, pueden requerir integracion adicional con el backend.
-
-## Autores
-
-Proyecto academico desarrollado para la materia de Administracion de Bases de Datos Corporativas.
