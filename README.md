@@ -40,7 +40,7 @@ http://localhost:4000/api/data/pacientes
 http://localhost:4000/api/data/medicos
 ```
 
-## Instalacion
+## Instalación
 
 Clona el repositorio:
 
